@@ -49,3 +49,5 @@ async function emprestarLivro() {
 
   alert('Empréstimo realizado!');
 }
+
+buscarLivros();

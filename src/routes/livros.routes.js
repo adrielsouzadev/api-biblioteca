@@ -8,7 +8,7 @@ router.post('/livros', async (req, res) => {
     const { titulo, autor } = req.body;
 
     await conn.query(
-        'INSERT INTO livros (titulo, autor, disponvel) VALUES (?, ?, true)',
+        'INSERT INTO livros (titulo, autor, disponivel) VALUES (?, ?, true)',
         [titulo, autor]
     );
 
@@ -28,6 +28,7 @@ router.get('/livros', async (req, res) => {
     }
 
     const [livros] = await conn.query('SELECT * FROM livros');
+    await conn.end();
     res.json(livros);
 });
 
@@ -36,7 +37,7 @@ router.get('/livros/:id', async (req, res) => {
 
     const [livro] = await conn.query(
         'SELECT * FROM livros WHERE id = ?',
-        [req.params,id]
+        [req.params.id]
     );
         res.json(livro[0]);
 });
