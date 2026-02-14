@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import livros from './routes/livros.routes.js';
 import usuarios from './routes/usuarios.routes.js';
-import empresitmos from './routes/emprestimos.routes'
+import empresitmos from './routes/emprestimos.routes.js'
 
 const app = express();
 

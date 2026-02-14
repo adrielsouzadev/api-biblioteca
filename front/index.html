@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Sistema de Biblioteca</h1>
+
+        <section class="card">
+            <h2>Cadastrar Usuário</h2>
+            <div class="input-group">
+                <input id="nomeUsuario" type="text" placeholder="Nome do usuário">
+                <button onclick="cadastrarUsuario()">Cadastrar</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Cadastrar Livro</h2>
+            <div class="input-group">
+                <input id="titulo" type="text" placeholder="Título do livro" />
+                <input id="autor" type="text" placeholder="Autor" />
+                <button onclick="cadastrarLivro()">Cadastrar</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Buscar Livros</h2>
+            <div class="input-group">
+                <input id="busca" type="text" placeholder="Buscar por título" />
+                <button onclick="buscarLivros()">Buscar</button>
+            </div>
+            <ul id="listaLivros" class="lista-estilizada"></ul>
+        </section>
+
+        <section class="card-destaque">
+            <h2>Fazer Empréstimo</h2>
+            <div class="input-group-inline">
+                <input id="usuarioId" type="number" placeholder="ID do usuário" />
+                <input id="livroId" type="number" placeholder="ID do livro" />
+                <button onclick="emprestarLivro()" class="btn-primary">Emprestar</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
