@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 40px;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button {
+    cursor: pointer;
+    background: #64dd80;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px; 
+}
+button:hover {
+    background: #218838;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    }
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}

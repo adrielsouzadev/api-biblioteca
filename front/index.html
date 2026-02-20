@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Biblioteca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Sistema de Biblioteca</h1>
+
+    <div class="container">
+        <section>
+            <h2>Cadastrar Livros</h2>
+            <input type="text" id="tituloLivro" placeholder="Título do Livro">
+            <input type="text" id="autorLivro" placeholder="Autor">
+            <button onclick="cadastrarLivro()">Salvar Livro</button>
+        </section>
+
+        <section>
+            <h2>Livros disponíveis</h2>
+            <ul id="listaLivros"></ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
