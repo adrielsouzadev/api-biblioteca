@@ -9,19 +9,29 @@
 <body>
     <h1>Sistema de Biblioteca</h1>
 
-    <div class="container">
-        <section>
-            <h2>Cadastrar Livros</h2>
-            <input type="text" id="tituloLivro" placeholder="Título do Livro">
-            <input type="text" id="autorLivro" placeholder="Autor">
-            <button onclick="cadastrarLivro()">Salvar Livro</button>
-        </section>
+<div class="container">
+    <section>
+        <h2>Livros</h2>
+        <input type="text" id="tituloLivro" placeholder="Título do Livro">
+        <input type="text" id="autorLivro" placeholder="Autor">
+        <button onclick="cadastrarLivro()">Salvar Livro</button>
+        <ul id="listaLivros"></ul>
+    </section>
 
-        <section>
-            <h2>Livros disponíveis</h2>
-            <ul id="listaLivros"></ul>
-        </section>
-    </div>
+    <section>
+        <h2>Usuários</h2>
+        <input type="text" id="nomeUsuario" placeholder="Nome do Usuário">
+        <button onclick="cadastrarUsuario()">Cadastrar Usuário</button>
+        <ul id="listaUsuarios"></ul>
+    </section>
+
+    <section>
+        <h2>Realizar Empréstimo</h2>
+        <select id="selectUsuario"><option>Selecione o Usuário</option></select>
+        <select id="selectLivro"><option>Selecione o Livro</option></select>
+        <button onclick="realizarEmprestimo()">Confirmar Empréstimo</button>
+    </section>
+</div>
 
     <script src="script.js"></script>
 </body>
