@@ -15,26 +15,47 @@ async function buscarLivros() {
         const lista = document.getElementById('listaLivros');
         const selectLivro = document.getElementById('selectLivro');
         
-        lista.innerHTML = '';
-        selectLivro.innerHTML = '<option value="">Selecione o Livro</option>';
+        lista.innerHTML = ''; 
+        selectLivro.innerHTML = '';
+        
+        // Criando a opção padrão do select
+        const optPadrao = document.createElement('option');
+        optPadrao.textContent = 'Selecione o Livro';
+        optPadrao.value = '';
+        selectLivro.appendChild(optPadrao);
 
         livros.forEach(livro => {
             const item = document.createElement('li');
             item.className = livro.disponivel ? 'disponivel' : 'indisponivel';
-    
-            // Se o livro NÃO estiver disponível, adicionamos o botão de devolver
-            const botaoDevolver = !livro.disponivel 
-                ? `<button class="btn-devolver" onclick="devolverLivro(${livro.id})">Devolver</button>` : '';
 
-    item.innerHTML = `
-        <strong>${livro.titulo}</strong> - ${livro.autor} 
-        <span>(${livro.disponivel ? 'Disponível' : 'Emprestado'})</span>
-        ${botaoDevolver}
-        <button class="btn-excluir" onclick="excluirLivro(${livro.id})">Excluir</button>
-`;
-    lista.appendChild(item);
+            const tituloForte = document.createElement('strong');
+            tituloForte.textContent = livro.titulo;
+            
+            const textoInfo = document.createTextNode(` - ${livro.autor} `);
+            
+            const spanStatus = document.createElement('span');
+            spanStatus.textContent = `(${livro.disponivel ? 'Disponível' : 'Emprestado'})`;
+            
+            item.appendChild(tituloForte);
+            item.appendChild(textoInfo);
+            item.appendChild(spanStatus);
 
-            // Adiciona no seletor de empréstimo (apenas se estiver disponível)
+            if (!livro.disponivel) {
+                const btnDevolver = document.createElement('button');
+                btnDevolver.className = 'btn-devolver';
+                btnDevolver.textContent = 'Devolver';
+                btnDevolver.onclick = () => devolverLivro(livro.id);
+                item.appendChild(btnDevolver);
+            }
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.className = 'btn-excluir';
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = () => excluirLivro(livro.id);
+            item.appendChild(btnExcluir);
+
+            lista.appendChild(item);
+
             if (livro.disponivel) {
                 const opcao = document.createElement('option');
                 opcao.value = livro.id;
@@ -74,10 +95,17 @@ async function buscarUsuarios() {
         const selectUsuario = document.getElementById('selectUsuario');
         
         lista.innerHTML = '';
-        selectUsuario.innerHTML = '<option value="">Selecione o Usuário</option>';
+        selectUsuario.innerHTML = '';
+        
+        const optPadrao = document.createElement('option');
+        optPadrao.textContent = 'Selecione o Usuário';
+        optPadrao.value = '';
+        selectUsuario.appendChild(optPadrao);
 
         usuarios.forEach(u => {
-            lista.innerHTML += `<li>👤 ${u.nome}</li>`;
+            const item = document.createElement('li');
+            item.textContent = `👤 ${u.nome}`;
+            lista.appendChild(item);
             
             const opcao = document.createElement('option');
             opcao.value = u.id;
