@@ -29,4 +29,23 @@ router.get('/livros', async (req, res) => {
     }
 });
 
+// Rota para devolver o livro
+router.put('/livros/:id/devolver', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const conn = await conectar();
+        
+        // Volta o status do livro para 'true' (disponível)
+        await conn.query('UPDATE livros SET disponivel = true WHERE id = ?', [id]);
+        
+        // Remove o registro de empréstimo para limpar o histórico
+        await conn.query('DELETE FROM emprestimos WHERE livro_id = ?', [id]);
+        
+        await conn.end();
+        res.json({ mensagem: 'Livro devolvido com sucesso!' });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao devolver livro' });
+    }
+});
+
 export default router;
