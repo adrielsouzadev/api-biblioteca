@@ -28,9 +28,10 @@ async function buscarLivros() {
 
     item.innerHTML = `
         <strong>${livro.titulo}</strong> - ${livro.autor} 
-        <span>(${livro.disponivel ? '✅ Disponível' : '❌ Emprestado'})</span>
+        <span>(${livro.disponivel ? 'Disponível' : 'Emprestado'})</span>
         ${botaoDevolver}
-    `;
+        <button class="btn-excluir" onclick="excluirLivro(${livro.id})">Excluir</button>
+`;
     lista.appendChild(item);
 
             // Adiciona no seletor de empréstimo (apenas se estiver disponível)
@@ -140,6 +141,23 @@ async function devolverLivro(id) {
         }
     } catch (erro) {
         console.error("Erro ao devolver livro:", erro);
+    }
+}
+
+// Função para excluir um livro
+async function excluirLivro(id) {
+    if (!confirm("Tem certeza que deseja remover este livro?")) return;
+
+    try {
+        const resposta = await fetch(`${API_URL}/livros/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (resposta.ok) {
+            buscarLivros();
+        }
+    } catch (erro) {
+        console.error("Erro ao excluir livro:", erro);
     }
 }
 

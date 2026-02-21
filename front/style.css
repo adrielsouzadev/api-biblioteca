@@ -41,8 +41,26 @@ li {
 .btn-devolver {
     background-color: #ffc107;
     color: black;
-    margin-left: 10px;
+    border: none;
     padding: 5px 10px;
-    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px;
 }
 .btn-devolver:hover { background-color: #e0a800; }
+
+.btn-excluir {
+    background-color: #df515f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.btn-excluir:hover {
+    background-color: #c52636;
+}

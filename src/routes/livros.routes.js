@@ -48,4 +48,23 @@ router.put('/livros/:id/devolver', async (req, res) => {
     }
 });
 
+// Rota para excluir um livro definitivamente
+router.delete('/livros/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const conn = await conectar();
+        
+        // Remover registro de empréstimo do livro
+        await conn.query('DELETE FROM emprestimos WHERE livro_id = ?', [id]);
+        
+        // Excluir o livro
+        await conn.query('DELETE FROM livros WHERE id = ?', [id]);
+        
+        await conn.end();
+        res.json({ mensagem: 'Livro removido do sistema!' });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao excluir livro' });
+    }
+});
+
 export default router;
