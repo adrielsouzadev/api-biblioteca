@@ -28,4 +28,18 @@ router.get('/usuarios', async (req, res) => {
     }
 });
 
+// Rota para excluir um usuário
+router.delete('/usuarios/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const conn = await conectar();
+        await conn.query('DELETE FROM emprestimos WHERE usuario_id = ?', [id]);
+        await conn.query('DELETE FROM usuarios WHERE id = ?', [id]);
+        await conn.end();
+        res.json({ mensagem: 'Usuário removido com sucesso!' });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao excluir usuário' });
+    }
+});
+
 export default router;
