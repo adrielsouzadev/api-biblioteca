@@ -151,7 +151,7 @@ async function excluirUsuario(id) {
         });
 
         if (resposta.ok) {
-            carregarDados(); // Recarrega tanto usuários quanto livros (caso algum livro tenha sido liberado)
+            await carregarDados();
         }
     } catch (erro) {
         console.error("Erro ao excluir usuário:", erro);

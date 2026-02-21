@@ -28,16 +28,26 @@ router.get('/usuarios', async (req, res) => {
     }
 });
 
-// Rota para excluir um usuário
+// Rota para excluir um usuário e devolver os seus livros automaticamente
 router.delete('/usuarios/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const conn = await conectar();
+
+        await conn.query(`
+            UPDATE livros 
+            SET disponivel = true 
+            WHERE id IN (SELECT livro_id FROM emprestimos WHERE usuario_id = ?)
+        `, [id]);
+
         await conn.query('DELETE FROM emprestimos WHERE usuario_id = ?', [id]);
+
         await conn.query('DELETE FROM usuarios WHERE id = ?', [id]);
+
         await conn.end();
-        res.json({ mensagem: 'Usuário removido com sucesso!' });
+        res.json({ mensagem: 'Usuário removido e livros devolvidos automaticamente!' });
     } catch (erro) {
+        console.error(erro);
         res.status(500).json({ erro: 'Erro ao excluir usuário' });
     }
 });
