@@ -104,7 +104,16 @@ async function buscarUsuarios() {
 
         usuarios.forEach(u => {
             const item = document.createElement('li');
-            item.textContent = `👤 ${u.nome}`;
+            
+            const textoUsuario = document.createTextNode(`👤 ${u.nome} `);
+            item.appendChild(textoUsuario);
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.className = 'btn-excluir'; // Reutilizando a classe CSS que você já tem
+            btnExcluir.onclick = () => excluirUsuario(u.id);
+            
+            item.appendChild(btnExcluir);
             lista.appendChild(item);
             
             const opcao = document.createElement('option');
@@ -117,6 +126,7 @@ async function buscarUsuarios() {
     }
 }
 
+// Função para casastrar usuário
 async function cadastrarUsuario() {
     const nome = document.getElementById('nomeUsuario').value;
     if (!nome) return;
@@ -129,6 +139,23 @@ async function cadastrarUsuario() {
 
     document.getElementById('nomeUsuario').value = '';
     buscarUsuarios();
+}
+
+// Função para excluir o usuário
+async function excluirUsuario(id) {
+    if (!confirm("Tem certeza que deseja remover este usuário? Todos os empréstimos dele serão apagados.")) return;
+
+    try {
+        const resposta = await fetch(`${API_URL}/usuarios/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (resposta.ok) {
+            carregarDados(); // Recarrega tanto usuários quanto livros (caso algum livro tenha sido liberado)
+        }
+    } catch (erro) {
+        console.error("Erro ao excluir usuário:", erro);
+    }
 }
 
 // Função para empréstimos
