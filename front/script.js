@@ -19,11 +19,19 @@ async function buscarLivros() {
         selectLivro.innerHTML = '<option value="">Selecione o Livro</option>';
 
         livros.forEach(livro => {
-            // Adiciona na lista visual
             const item = document.createElement('li');
             item.className = livro.disponivel ? 'disponivel' : 'indisponivel';
-            item.innerHTML = `<strong>${livro.titulo}</strong> - ${livro.autor} (${livro.disponivel ? '✅ Disponível' : '❌ Emprestado'})`;
-            lista.appendChild(item);
+    
+            // Se o livro NÃO estiver disponível, adicionamos o botão de devolver
+            const botaoDevolver = !livro.disponivel 
+                ? `<button class="btn-devolver" onclick="devolverLivro(${livro.id})">Devolver</button>` : '';
+
+    item.innerHTML = `
+        <strong>${livro.titulo}</strong> - ${livro.autor} 
+        <span>(${livro.disponivel ? '✅ Disponível' : '❌ Emprestado'})</span>
+        ${botaoDevolver}
+    `;
+    lista.appendChild(item);
 
             // Adiciona no seletor de empréstimo (apenas se estiver disponível)
             if (livro.disponivel) {
@@ -117,6 +125,21 @@ async function realizarEmprestimo() {
         }
     } catch (erro) {
         console.error("Erro ao realizar empréstimo:", erro);
+    }
+}
+
+// Função para devolver livro
+async function devolverLivro(id) {
+    try {
+        const resposta = await fetch(`${API_URL}/livros/${id}/devolver`, {
+            method: 'PUT'
+        });
+
+        if (resposta.ok) {
+            carregarDados(); // Recarrega as listas e os seletores
+        }
+    } catch (erro) {
+        console.error("Erro ao devolver livro:", erro);
     }
 }
 
