@@ -72,27 +72,47 @@ button:not(.btn-devolver):not(.btn-excluir) {
 button:hover { opacity: 0.9; transform: translateY(-2px); }
 
 /* Listas */
-ul { list-style: none; padding: 0; flex-grow: 1; }
+ul {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
 li {
-    padding: 15px;
-    background: #f9f9f9;
-    margin-bottom: 8px;
-    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    padding: 15px;
 }
 
-.disponivel { border-left: 5px solid var(--sucesso); }
-.indisponivel { border-left: 5px solid var(--perigo); }
+.acoes-botoes {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap; 
+}
+
+.disponivel {
+    border-left: 5px solid var(--sucesso);}
+
+.indisponivel {
+    border-left: 5px solid var(--perigo);
+}
 
 /* Botões de Ação */
-.btn-devolver { background-color: var(--alerta); color: white; padding: 6px 12px; margin-right: 5px; }
-.btn-excluir { background-color: var(--perigo); color: white; padding: 6px 12px; }
+.btn-devolver { background-color: var(--alerta);
+    color: white; padding: 6px 12px;
+    margin-right: 5px;
+}
+
+.btn-excluir { background-color: var(--perigo);
+    color: white;
+    padding: 6px 12px;}
 
 /* Tabela de Empréstimos */
 .tabela-emprestimos {
-    grid-column: 1 / -1; /* Ocupa a largura toda */
+    grid-column: 1 / -1;
     width: 100%;
     background: var(--branco);
     border-collapse: collapse;
@@ -106,4 +126,7 @@ li {
     border-bottom: 1px solid #eee;
 }
 
-.tabela-emprestimos th { background-color: var(--primaria); color: white; }
+.tabela-emprestimos th {
+    background-color: var(--primaria);
+    color: white;
+}

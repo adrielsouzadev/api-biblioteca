@@ -19,7 +19,7 @@ async function buscarLivros() {
         lista.innerHTML = ''; 
         selectLivro.innerHTML = '';
         
-        // Criando a opção padrão do select
+        // Criamos a opção padrão do select
         const optPadrao = document.createElement('option');
         optPadrao.textContent = 'Selecione o Livro';
         optPadrao.value = '';
@@ -29,6 +29,10 @@ async function buscarLivros() {
             const item = document.createElement('li');
             item.className = livro.disponivel ? 'disponivel' : 'indisponivel';
 
+            // --- Bloco de Informações (Esquerda) ---
+            const info = document.createElement('div');
+            info.style.flex = "1";
+
             const tituloForte = document.createElement('strong');
             tituloForte.textContent = livro.titulo;
             
@@ -37,26 +41,33 @@ async function buscarLivros() {
             const spanStatus = document.createElement('span');
             spanStatus.textContent = `(${livro.disponivel ? 'Disponível' : 'Emprestado'})`;
             
-            item.appendChild(tituloForte);
-            item.appendChild(textoInfo);
-            item.appendChild(spanStatus);
+            info.appendChild(tituloForte);
+            info.appendChild(textoInfo);
+            info.appendChild(spanStatus);
+            item.appendChild(info);
+
+            // --- Bloco de Ações/Botões (Direita) ---
+            const acoes = document.createElement('div');
+            acoes.className = 'acoes-botoes';
 
             if (!livro.disponivel) {
                 const btnDevolver = document.createElement('button');
                 btnDevolver.className = 'btn-devolver';
                 btnDevolver.textContent = 'Devolver';
                 btnDevolver.onclick = () => devolverLivro(livro.id);
-                item.appendChild(btnDevolver);
+                acoes.appendChild(btnDevolver);
             }
 
             const btnExcluir = document.createElement('button');
             btnExcluir.className = 'btn-excluir';
             btnExcluir.textContent = 'Excluir';
             btnExcluir.onclick = () => excluirLivro(livro.id);
-            item.appendChild(btnExcluir);
+            acoes.appendChild(btnExcluir);
 
+            item.appendChild(acoes);
             lista.appendChild(item);
 
+            // --- A PARTE QUE FALTAVA: Preencher o seletor de livros ---
             if (livro.disponivel) {
                 const opcao = document.createElement('option');
                 opcao.value = livro.id;
@@ -67,23 +78,6 @@ async function buscarLivros() {
     } catch (erro) {
         console.error("Erro ao carregar livros:", erro);
     }
-}
-
-async function cadastrarLivro() {
-    const titulo = document.getElementById('tituloLivro').value;
-    const autor = document.getElementById('autorLivro').value;
-
-    if (!titulo || !autor) return console.warn("Preencha título e autor!");
-
-    await fetch(`${API_URL}/livros`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ titulo, autor })
-    });
-
-    document.getElementById('tituloLivro').value = '';
-    document.getElementById('autorLivro').value = '';
-    buscarLivros();
 }
 
 // Função para usuário
