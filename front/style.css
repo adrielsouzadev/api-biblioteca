@@ -1,91 +1,109 @@
+:root {
+    --primaria: #2c3e50;
+    --sucesso: #27ae60;
+    --alerta: #f39c12;
+    --perigo: #e74c3c;
+    --fundo: #ecf0f1;
+    --branco: #ffffff;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fundo);
+    margin: 0;
     padding: 20px;
+    color: var(--primaria);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primaria);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
 }
 
 .container {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 section {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: var(--branco);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    border-bottom: 2px solid var(--fundo);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+input, select {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
 button {
-    cursor: pointer;
-    background: #64dd80;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px; 
-}
-button:hover {
-    background: #218838;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-    }
-
-li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.btn-devolver {
-    background-color: #ffc107;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    margin-left: 10px;
-}
-.btn-devolver:hover { background-color: #e0a800; }
-
-.btn-excluir {
-    background-color: #df515f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    margin-left: 10px;
-}
-
-.btn-excluir:hover {
-    background-color: #c52636;
-}
-
-/* Estilização da Tabela de Empréstimos */
-.tabela-emprestimos {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background-color: white;
-}
-
-.tabela-emprestimos th, 
-.tabela-emprestimos td {
     padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.tabela-emprestimos th {
-    background-color: #f8f9fa;
-    color: #333;
+    border-radius: 6px;
+    border: none;
     font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.tabela-emprestimos tr:hover {
-    background-color: #f1f1f1;
+/* Botões Principais */
+button:not(.btn-devolver):not(.btn-excluir) {
+    background-color: var(--sucesso);
+    color: white;
+    margin-bottom: 20px;
 }
+
+button:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* Listas */
+ul { list-style: none; padding: 0; flex-grow: 1; }
+li {
+    padding: 15px;
+    background: #f9f9f9;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.disponivel { border-left: 5px solid var(--sucesso); }
+.indisponivel { border-left: 5px solid var(--perigo); }
+
+/* Botões de Ação */
+.btn-devolver { background-color: var(--alerta); color: white; padding: 6px 12px; margin-right: 5px; }
+.btn-excluir { background-color: var(--perigo); color: white; padding: 6px 12px; }
+
+/* Tabela de Empréstimos */
+.tabela-emprestimos {
+    grid-column: 1 / -1; /* Ocupa a largura toda */
+    width: 100%;
+    background: var(--branco);
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tabela-emprestimos th, .tabela-emprestimos td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.tabela-emprestimos th { background-color: var(--primaria); color: white; }
