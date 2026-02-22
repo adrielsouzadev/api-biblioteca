@@ -64,3 +64,28 @@ li {
 .btn-excluir:hover {
     background-color: #c52636;
 }
+
+/* Estilização da Tabela de Empréstimos */
+.tabela-emprestimos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: white;
+}
+
+.tabela-emprestimos th, 
+.tabela-emprestimos td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabela-emprestimos th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.tabela-emprestimos tr:hover {
+    background-color: #f1f1f1;
+}

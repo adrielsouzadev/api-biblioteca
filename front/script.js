@@ -4,6 +4,7 @@ const API_URL = "http://localhost:3000";
 async function carregarDados() {
     await buscarLivros();
     await buscarUsuarios();
+    await buscarEmprestimos();
 }
 
 // Função para livros
@@ -126,7 +127,7 @@ async function buscarUsuarios() {
     }
 }
 
-// Função para casastrar usuário
+// Função para cadastrar usuário
 async function cadastrarUsuario() {
     const nome = document.getElementById('nomeUsuario').value;
     if (!nome) return;
@@ -199,6 +200,8 @@ async function devolverLivro(id) {
     }
 }
 
+
+
 // Função para excluir um livro
 async function excluirLivro(id) {
     if (!confirm("Tem certeza que deseja remover este livro?")) return;
@@ -213,6 +216,38 @@ async function excluirLivro(id) {
         }
     } catch (erro) {
         console.error("Erro ao excluir livro:", erro);
+    }
+}
+
+// Função para carregar tabela de empréstimos
+async function buscarEmprestimos() {
+    try {
+        const resposta = await fetch(`${API_URL}/emprestimos`);
+        const emprestimos = await resposta.json();
+        
+        const tbody = document.getElementById('tabelaEmprestimos');
+        tbody.innerHTML = '';
+
+        emprestimos.forEach(e => {
+            const tr = document.createElement('tr');
+            
+            const tdUsuario = document.createElement('td');
+            tdUsuario.textContent = e.usuario;
+            
+            const tdLivro = document.createElement('td');
+            tdLivro.textContent = e.livro;
+            
+            const tdData = document.createElement('td');
+            // Formata a data para o padrão brasileiro
+            tdData.textContent = new Date(e.data_emprestimo).toLocaleDateString('pt-BR');
+
+            tr.appendChild(tdUsuario);
+            tr.appendChild(tdLivro);
+            tr.appendChild(tdData);
+            tbody.appendChild(tr);
+        });
+    } catch (erro) {
+        console.error("Erro ao carregar tabela de empréstimos:", erro);
     }
 }
 

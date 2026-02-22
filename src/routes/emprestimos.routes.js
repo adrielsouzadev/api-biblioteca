@@ -21,4 +21,22 @@ router.post('/emprestimos', async (req, res) => {
     }
 });
 
+// Rota para listar detalhes dos empréstimos ativos
+router.get('/emprestimos', async (req, res) => {
+    try {
+        const conn = await conectar();
+        const sql = `
+            SELECT e.id, u.nome AS usuario, l.titulo AS livro, e.data_emprestimo 
+            FROM emprestimos e
+            JOIN usuarios u ON e.usuario_id = u.id
+            JOIN livros l ON e.livro_id = l.id
+        `;
+        const [resultados] = await conn.query(sql);
+        await conn.end();
+        res.json(resultados);
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao buscar empréstimos' });
+    }
+});
+
 export default router;
