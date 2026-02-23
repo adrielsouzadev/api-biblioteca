@@ -39,3 +39,12 @@ npm install
 
 # Iniciar o servidor (Rodando por padrão na porta 3000)
 node src/server.js
+```
+### 4. Execução do Frontend
+Abra o arquivo `front/index.html` em seu navegador ou utilize a extensão **Live Server** do VS Code para uma melhor experiência.
+
+## 📝 Licença
+Este projeto está sob a licença **MIT**.
+
+---
+Desenvolvido por **Adriel Souza**.
